@@ -607,7 +607,7 @@
         var $selectedElement = getSelectedElement();
         if ($selectedElement.length == 1) {
           var index = $selectedElement.index();
-          var newTitle = $editTitle.val();
+          var newTitle = ("H"+$editTitle.val();
           $selectedElement.children(".tourTxt").text(newTitle);
           tourJSON.keyframes[index].unsafe_string_frameTitle = newTitle;
           controller.emit("encodeTour", tourJSON);

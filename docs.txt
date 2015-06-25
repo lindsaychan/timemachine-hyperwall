@@ -1,0 +1,12 @@
+
+
+snaplapseViewer.js
+
+displaySnaplapseFrameAnnotation()
+-displays text for each frame 
+
+displayImageTransition()
+    -displays transitions for each frame, including the images of lake information and titles
+    -displays “Welcome” on first frame
+    -24.64 second timeout after image shown
+    -holdover is an array containing the previous frame annotation

@@ -884,7 +884,31 @@ if (!org.gigapan.timelapse.snaplapse) {
         }
       }
     };
+    var displayImageTransition=function(next,holdover){
+      var lakes=["0","Lake Tahoe","Crater Lake","Lake Erie","Lake Champlain"];
+      var lake= '<img src="imgs/{0}.png" />'.format(lakes[holdover.length]);
+      console.log(lake)
+      $("#" + viewerDivId + " .snaplapse-annotation-description > div").prepend(lake);
+      $("#" + viewerDivId + " .snaplapse-annotation-description > div").show();
+      if (lakes[holdover.length]=="0"){
+        $("#" + viewerDivId + " .snaplapse-annotation-description > div").text(next[holdover.length]);
+        $("#" + viewerDivId + " .snaplapse-annotation-description > div").css("font-size","70px");
+        $("#" + viewerDivId + " .snaplapse-annotation-description").css("margin-right", "50%");
+        $("#" + viewerDivId + " .snaplapse-annotation-description").css("margin-bottom", "20%");
+        }
+      setTimeout(function(){
+        $("#" + viewerDivId + " .snaplapse-annotation-description > div ").hide();
+        },3000);//24640);
 
+    };
+    String.prototype.format = function(){
+      var str=this;
+      for (var i=0; i<arguments.length;i++){
+        var regex= new RegExp("\\{"+i+"\\}","gm");
+        str = str.replace(regex, arguments[i+1]);
+      }
+      return str;
+    };
     var displaySnaplapseFrameAnnotation = function(keyframe) {
       if (keyframe && !usePresentationSlider) {
         if (keyframe['is-description-visible']) {
@@ -892,6 +916,20 @@ if (!org.gigapan.timelapse.snaplapse) {
             // Uses .text() and not .html() to prevent cross-site scripting
             $("#" + viewerDivId + " .snaplapse-annotation-description > div").text(keyframe['unsafe_string_description']);
             $("#" + viewerDivId + " .snaplapse-annotation-description").show();
+            if (!holdover){
+              var holdover=[];
+            }
+            console.log(holdover);
+            //TODO: add pause in script
+            //timeout to another function so that next shown
+            //note: pass next, holdover.length
+            var next =["Welcome to Earth Timelapse","Now going to Lake Tahoe","On to Oregon!","Next up: Ohio","Now we're going to Burlington, VT"];
+            setTimeout(function(){
+              console.log('bar foo');
+              displayImageTransition(next,holdover);
+            },3000);//58600);
+            holdover.push(next[holdover.length]);
+            console.log(holdover)
           } else {
             hideAnnotationBubble();
           }
@@ -902,7 +940,6 @@ if (!org.gigapan.timelapse.snaplapse) {
         hideAnnotationBubble();
       }
     };
-
     var loadNewSnaplapse = function(json, noPlaybackOverlay) {
       snaplapse.clearSnaplapse();
       timelapse.stopParabolicMotion();

@@ -16,9 +16,8 @@ Download node.js and install it from http://nodejs.org/download/.
 ## Running the node.js server on the master:
 - **Download the timemachine-hyperwall code from github.**
   ```
-  git clone https://github.com/CMU-CREATE-Lab/timemachine-hyperwall.git
+  git clone   https://github.com/IronManMark20/timemachine-hyperwall.git
   ```
-  OR [download a zip from GitHub](https://github.com/CMU-CREATE-Lab/timemachine-hyperwall/archive/master.zip)
 
 - **In a terminal, go to the timemachine-hyperwall code folder on the master machine and start the server by typing:**
   
@@ -28,7 +27,7 @@ Download node.js and install it from http://nodejs.org/download/.
 
 - **Go to a browser (Chrome recommended) on the master machine and type in the following address:**
   ```
-  http://localhost:8080/hyperwall.html?master=true&showControls=true&showMap=true&mapPosition=topRight&showLogoUrl=true&logoUrlPosition=topLeft
+  http://localhost:8080/hyperwall_editor.html
   ```
 
 - **Settings after [http://localhost:8080/hyperwall.html?]()**

@@ -886,16 +886,26 @@ if (!org.gigapan.timelapse.snaplapse) {
     };
     var displayImageTransition=function(next,holdover){
       var lakes=["0","Lake Tahoe","Crater Lake","Lake Superior","Lake Champlain"];
-      var lake= '<img class = "lake_img" src="imgs/{0}.png" />'.format(lakes[holdover.length]);
-      console.log(lake)
-      var firstFrame = snaplapse.getKeyframes()[holdover.length];
+      for(var i = 0; i < next.length; i++)
+      {
+
+        var firstFrame = snaplapse.getKeyframes()[i];
+        var lake= '<img class = "lake_img" src="imgs/{0}.png" />'.format(lakes[i]);
+
+
+        console.log(lake);
+
+      }
+     
+        $("#timeMachine").prepend(lake);
+        $("#timeMachine").children(".lake_img").prepend('<div id = "holdover"></div>');
+        $("#holdover").text(holdover);
+        $("#timeMachine").children(".lake_img").show();
+        $("#timeMachine").children(".player").hide();
+        $("#" + viewerDivId + " .snaplapse-annotation-description > div").show();
+      
       console.log(snaplapse.getKeyframes());
       console.log(firstFrame);
-      $("#timeMachine").prepend(lake);
-      $("#timeMachine").children(".lake_img").show();
-      $("#timeMachine").children(".player").hide();
-      $("#" + viewerDivId + " .snaplapse-annotation-description > div").show();
-      //console.log(holdover.length);
       
       if (lakes[holdover.length]=="0"){
         $("#" + viewerDivId + " .snaplapse-annotation-description > div").text(next[holdover.length]);
@@ -912,7 +922,7 @@ if (!org.gigapan.timelapse.snaplapse) {
         //console.log("test");
         
         
-        },1000);//24640);
+        },10000);//24640);
 
 
     };
@@ -932,19 +942,34 @@ if (!org.gigapan.timelapse.snaplapse) {
             $("#" + viewerDivId + " .snaplapse-annotation-description > div").text(keyframe['unsafe_string_description']);
             $("#" + viewerDivId + " .snaplapse-annotation-description").show();
             console.log(snaplapse);
-            if (!holdover){
-              var holdover=[];
-            }
+          
             //TODO: add pause in script
             //timeout to another function so that next shown
             //note: pass next, holdover.length
             var next =["Welcome to Earth Timelapse","Now going to Lake Tahoe","On to Oregon!","Next up: Ohio","Now we're going to Burlington, VT"];
+            if (!holdover){
+              var holdover=[];
+            }
+            
+            holdover = $("#holdover").text();
+            holdover.replace("[", "").replace("]","");
+            holdover = holdover.split(",");
+
             setTimeout(function(){
               console.log('bar foo');
               displayImageTransition(next,holdover);
             },3000);//58600);
+              
+          
             holdover.push(next[holdover.length]);
-            console.log(holdover)
+            console.log(holdover);
+            
+      
+              
+              
+            
+            
+            //console.log(holdover.length);
           } else {
             hideAnnotationBubble();
           }

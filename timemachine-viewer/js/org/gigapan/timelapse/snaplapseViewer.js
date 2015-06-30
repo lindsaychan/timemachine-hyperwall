@@ -885,41 +885,56 @@ if (!org.gigapan.timelapse.snaplapse) {
       }
     };
     var displayImageTransition=function(next,holdover){
-      var lakes=["0","Lake Tahoe","Crater Lake","Lake Erie","Lake Champlain"];
-      var lake= '<img src="imgs/{0}.png" />'.format(lakes[holdover.length]);
+      var lakes=["0","Lake Tahoe","Crater Lake","Lake Superior","Lake Champlain"];
+      var lake= '<img class = "lake_img" src="imgs/{0}.png" />'.format(lakes[holdover.length]);
       console.log(lake)
-      $("#" + viewerDivId + " .snaplapse-annotation-description > div").prepend(lake);
+      var firstFrame = snaplapse.getKeyframes()[holdover.length];
+      console.log(snaplapse.getKeyframes());
+      console.log(firstFrame);
+      $("#timeMachine").prepend(lake);
+      $("#timeMachine").children(".lake_img").show();
+      $("#timeMachine").children(".player").hide();
       $("#" + viewerDivId + " .snaplapse-annotation-description > div").show();
+      //console.log(holdover.length);
+      
       if (lakes[holdover.length]=="0"){
         $("#" + viewerDivId + " .snaplapse-annotation-description > div").text(next[holdover.length]);
         $("#" + viewerDivId + " .snaplapse-annotation-description > div").css("font-size","70px");
         $("#" + viewerDivId + " .snaplapse-annotation-description").css("margin-right", "50%");
-        $("#" + viewerDivId + " .snaplapse-annotation-description").css("margin-bottom", "20%");
+        $("#" + viewerDivId + " .snaplapse-annotation-description").css("margin-bottom", "10%");
         }
       setTimeout(function(){
         $("#" + viewerDivId + " .snaplapse-annotation-description > div ").hide();
-        },3000);//24640);
+        $("#timeMachine").children(".lake_img").hide();
+        $("#timeMachine").children(".player").show();
+          displaySnaplapseFrameAnnotation(firstFrame, holdover);
+
+        //console.log("test");
+        
+        
+        },1000);//24640);
+
 
     };
     String.prototype.format = function(){
       var str=this;
-      for (var i=0; i<arguments.length;i++){
+      for (var i=0; i<arguments.length; i++){
         var regex= new RegExp("\\{"+i+"\\}","gm");
-        str = str.replace(regex, arguments[i+1]);
+        str = str.replace(regex, arguments[i]);
       }
       return str;
     };
-    var displaySnaplapseFrameAnnotation = function(keyframe) {
+    var displaySnaplapseFrameAnnotation = function(keyframe, holdover) {
       if (keyframe && !usePresentationSlider) {
         if (keyframe['is-description-visible']) {
           if (isTextNonEmpty(keyframe['unsafe_string_description'])) {
             // Uses .text() and not .html() to prevent cross-site scripting
             $("#" + viewerDivId + " .snaplapse-annotation-description > div").text(keyframe['unsafe_string_description']);
             $("#" + viewerDivId + " .snaplapse-annotation-description").show();
+            console.log(snaplapse);
             if (!holdover){
               var holdover=[];
             }
-            console.log(holdover);
             //TODO: add pause in script
             //timeout to another function so that next shown
             //note: pass next, holdover.length
@@ -1243,7 +1258,7 @@ if (!org.gigapan.timelapse.snaplapse) {
     };
     this.loadNewSnaplapse = loadNewSnaplapse;
 
-    var setSubtitlePosition = function(position) {
+    var setSubtitlePosition = function(position) { 
       var positionBottom;
       if (position == "up")
         positionBottom = 62;

@@ -586,10 +586,12 @@
 .snaplapse-annotation-description div {
   display: table-cell;
   font-family: Arial, Helvetica, sans-serif;
-  padding-left: 20%;
-  padding-right: 20%;
+  padding-left: 0%;
+  padding-right: 0%;
+  padding-top: 0%;
   width: 60%;
   height: 100%;
+  /*z-index: -1;*/
   text-align: center;
   font-size: 14pt;
   word-wrap: break-word;

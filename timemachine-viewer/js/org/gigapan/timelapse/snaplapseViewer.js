@@ -36,6 +36,7 @@
 "use strict";
 
 var cachedSnaplapses = {};
+var count = 1;
 
 // Create the global symbol "org" if it doesn't exist.  Throw an error if it does exist but is not an object.
 var org;
@@ -884,6 +885,8 @@ if (!org.gigapan.timelapse.snaplapse) {
         }
       }
     };
+
+
     var displayImageTransition=function(next,holdover){
       var lakes=["0","Lake Tahoe","Crater Lake","Lake Superior","Lake Champlain"];
       var i = 0;
@@ -898,19 +901,90 @@ if (!org.gigapan.timelapse.snaplapse) {
         var lake4= '<img class = "{0}" src="imgs/{1}.png" />'.format(lakes[4], lakes[4]);
         $("#timeMachine").prepend(lake);
 
-        $("#timeMachine").children('img').attr('src', 'imgs/' + lakes[1] + '.png').show();
+        
+        if (count == 1)
+        {
+        
+        //FIX SO THEY DON'T SHOW INSTANTANEOUSLY RIGHT AFTER ONE ANOTHER
+        $("#" + viewerDivId + " .snaplapse-annotation-description > div").show();
+
+        setTimeout(function(){ 
+          $("#timeMachine").children(".player").hide();
+        },5000);
+
+         setTimeout(function(){ 
+          $("#timeMachine").children('img').attr('src', 'imgs/' + lakes[1] + '.png').show();
+        },5000);
+         
+         console.log("showing1")
+
+         $("#" + viewerDivId + " .snaplapse-annotation-description > div").hide();
+
+         setTimeout(function(){ 
+          $("#timeMachine").children(".player").show();
+        },8000);
+
+
          setTimeout(function(){
           $("#timeMachine").children('img').attr('src', 'imgs/' + lakes[1] + '.png').hide();
-        }, 10000); 
-       
-         setTimeout(function(){
-          $("#timeMachine").children('img').attr('src', 'imgs/' + lakes[2] + '.png').show();
-        }, 10000); 
-        
-          
-          
+        }, 9000); 
+  
+          setTimeout(function(){ 
           $("#timeMachine").children(".player").hide();
-          $("#" + viewerDivId + " .snaplapse-annotation-description > div").show();
+        },11000);
+
+         setTimeout(function(){
+          $("#timeMachine").children('img').attr('src', 'imgs/' + lakes[2] + '.png').show(); 
+          }, 11000);
+         console.log("showing2")
+
+          setTimeout(function(){ 
+          $("#timeMachine").children(".player").show();
+        },14000);
+
+          setTimeout(function(){
+            $("#timeMachine").children('img').attr('src', 'imgs/' + lakes[2] + '.png').hide();
+          }, 14000);
+      
+      setTimeout(function(){ 
+          $("#timeMachine").children(".player").hide();
+        },17000);
+
+        setTimeout(function(){
+          $("#timeMachine").children('img').attr('src', 'imgs/' + lakes[3] + '.png').show();
+          }, 17000);
+        console.log("showing3")
+
+
+         setTimeout(function(){ 
+          $("#timeMachine").children(".player").show();
+        },20000);
+        
+        setTimeout(function(){
+            $("#timeMachine").children('img').attr('src', 'imgs/' + lakes[3] + '.png').hide();
+        }, 20000);
+
+        setTimeout(function(){ 
+          $("#timeMachine").children(".player").hide();
+        },23000);
+
+        setTimeout(function(){
+          $("#timeMachine").children('img').attr('src', 'imgs/' + lakes[4] + '.png').show();
+          }, 23000);
+        console.log("showing4")
+
+        setTimeout(function(){ 
+          $("#timeMachine").children(".player").show();
+        },26000);
+
+        setTimeout(function(){
+            $("#timeMachine").children('img').attr('src', 'imgs/' + lakes[4] + '.png').hide();
+        }, 26000);
+
+        }
+
+        count = 2;
+          
        
       
       //console.log(snaplapse.getKeyframes());
@@ -922,16 +996,7 @@ if (!org.gigapan.timelapse.snaplapse) {
         $("#" + viewerDivId + " .snaplapse-annotation-description").css("margin-right", "50%");
         $("#" + viewerDivId + " .snaplapse-annotation-description").css("margin-bottom", "10%");
         }
-      /*setTimeout(function(){
-        $("#" + viewerDivId + " .snaplapse-annotation-description > div ").hide();
-        $("#timeMachine").children(".lake_img").hide();
-        $("#timeMachine").children(".player").show();
-          displaySnaplapseFrameAnnotation(firstFrame, holdover);
-
-        //console.log("test");
-        
-        
-        },50000);//24640);*/
+  
 
     };
 
@@ -950,7 +1015,7 @@ if (!org.gigapan.timelapse.snaplapse) {
             // Uses .text() and not .html() to prevent cross-site scripting
             $("#" + viewerDivId + " .snaplapse-annotation-description > div").text(keyframe['unsafe_string_description']);
             $("#" + viewerDivId + " .snaplapse-annotation-description").show();
-            console.log(snaplapse);
+          
           
             //TODO: add pause in script
             //timeout to another function so that next shown
@@ -965,7 +1030,6 @@ if (!org.gigapan.timelapse.snaplapse) {
             //holdover = holdover.split(",");
 
             setTimeout(function(){
-              console.log('bar foo');
               displayImageTransition(next,holdover);
             },3000);//58600);
             
@@ -975,8 +1039,6 @@ if (!org.gigapan.timelapse.snaplapse) {
               holdover.push(next[i]);
 
             }
-            console.log(holdover);
-            console.log(holdover.length);
             
     
           } else {

@@ -891,13 +891,16 @@ if (!org.gigapan.timelapse.snaplapse) {
       var lakes=["0","Lake Tahoe","Crater Lake","Lake Superior","Lake Champlain"];
      
 
-        var firstFrame = snaplapse.getKeyframes()[i];
+       
         var lake= '<img class = "{0}" src="imgs/{1}.png" />'.format(lakes[1], lakes[1]);
         var lake2= '<img class = "{0}" src="imgs/{1}.png" />'.format(lakes[2], lakes[2]);
         var lake3= '<img class = "{0}" src="imgs/{1}.png" />'.format(lakes[3], lakes[3]);
         var lake4= '<img class = "{0}" src="imgs/{1}.png" />'.format(lakes[4], lakes[4]);
         $("#timeMachine").prepend(lake); 
 
+        
+        //console.log(snaplapse.getKeyframes());
+        //console.log(firstFrame);
         
         if (count == 1)
         {
@@ -990,8 +993,6 @@ if (!org.gigapan.timelapse.snaplapse) {
           
        
       
-      //console.log(snaplapse.getKeyframes());
-      //console.log(firstFrame);
       
       if (lakes[holdover.length]=="0"){
         $("#" + viewerDivId + " .snaplapse-annotation-description > div").text(next[holdover.length]);
